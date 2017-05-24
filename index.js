@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { createStore } from 'redux';
+import { createStore, compose } from 'redux';
 import { Provider, connect } from 'react-redux';
 
 // React component
@@ -34,7 +34,12 @@ function counter(state = { count: 0 }, action) {
 }
 
 // Store:
-let store = createStore(counter);
+let store = createStore(
+    counter,
+    compose(
+        window.devToolsExtension ? window.devToolsExtension() : f => f
+    )
+);
 
 // Map Redux state to component props
 function mapStateToProps(state) {
